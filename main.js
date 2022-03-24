@@ -20,6 +20,7 @@ function getResults() {
         for (let i = 0; i < DATABASE.students.length; i++){
 
             if (DATABASE.students[i].lastName.toLowerCase().includes(search.toLowerCase())) {
+            
                 
                 elementSelector('.search-results').innerHTML += `
                 
@@ -33,7 +34,7 @@ function getResults() {
                 for (let studentCourse of DATABASE.students[i].courses) {
                     for (let dbCourse of DATABASE.courses) {
                         if (studentCourse.courseId == dbCourse.courseId) {
-                            elementSelector('.search-courses').innerHTML += `
+                            elementSelector('div > div:last-child > .search-courses').innerHTML += `
                             <div class="course-title">${dbCourse.title}</div>
                             <div class="studentCourse-start">${studentCourse.started.semester} ${studentCourse.started.year}</div>
                             <div class="course-credits">${studentCourse.passedCredits}/${dbCourse.totalCredits}</div>
@@ -44,11 +45,12 @@ function getResults() {
                     }
                 }
             }
-        }
         
-    }
+        }
     
+    }
 }
+
 
 
 elementSelector('.searchbar').addEventListener('keyup', getResults);
