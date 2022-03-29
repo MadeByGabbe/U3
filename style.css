@@ -1,3 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+  }
+
+body { 
+    margin: 0px;
+    padding: 0px;
+    background-color:cadetblue;
+}
+
+.box {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#header {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#byStudent {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.searchbar {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px 5px;
+    width: 250px;
+    border-radius: 5px;
+    border: solid rgb(63, 62, 62) 1px;
+}
+
+.studentTitle {
+    margin: 20px;
+}
+
+.search-result {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .search-div {
-    padding-bottom: 10px;
+    width: 90vw;
+    max-width: 1100px;
+    background-color: beige;
+    border-radius: 10px;
+    border:rgba(0, 0, 0, 0.5) solid 4px;
+    margin-bottom: 10px;
+}
+.title {
+    margin: 10px 20px 5px 20px;
+}
+
+.search-div > p {
+    margin-left: 20px;
+    font-size: 18px;
+}
+
+.search-courses {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 20px 20px 20px;
+}
+
+.search-courses > div {
+    border: solid rgb(63, 62, 62) 1px;
+}
+
+.course-title {
+    flex-grow: 1;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+
+.done {
+    padding: 10px;
+    background-color: rgb(87, 250, 87);
+    border-radius: 10px;
+}
+
+.notDone {
+    padding: 10px;
+    background-color: whitesmoke;
+    border-radius: 10px;
 }

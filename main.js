@@ -10,6 +10,22 @@ function clearResults() {
     elementSelector('.search-results').innerHTML = "";
 }
 
+function getTotalCredits(counter) {
+    let credits = [];
+
+    for (let studentCourse of DATABASE.students[counter].courses) {
+        credits.push(studentCourse.passedCredits);
+    }
+
+    let creditTotal = 0;
+
+    credits.forEach((credit => {
+        creditTotal += credit
+    }))
+
+    return creditTotal
+}
+
 // Renders result from search box input
 function getResults() {
     let search = elementSelector('.searchbar').value;
@@ -25,21 +41,40 @@ function getResults() {
                 elementSelector('.search-results').innerHTML += `
                 
                     <div class="search-div">
-                        <span class="search-item">${DATABASE.students[i].firstName}</span>
-                        <span class="search-item">${DATABASE.students[i].lastName}</span>
-                        <div class="search-courses"></div>
+                    <h3 class="studentTitle">
+                        ${DATABASE.students[i].firstName}
+                        ${DATABASE.students[i].lastName}
+                        ( Total Credits: ${getTotalCredits(i)} )
+                    </h3>
+                    <p> Courses: </p>
+                    <div class="search-courses"></div>
                     </div>
                 
                 `
                 for (let studentCourse of DATABASE.students[i].courses) {
                     for (let dbCourse of DATABASE.courses) {
                         if (studentCourse.courseId == dbCourse.courseId) {
-                            elementSelector('div > div:last-child > .search-courses').innerHTML += `
-                            <div class="course-title">${dbCourse.title}</div>
-                            <div class="studentCourse-start">${studentCourse.started.semester} ${studentCourse.started.year}</div>
-                            <div class="course-credits">${studentCourse.passedCredits}/${dbCourse.totalCredits}</div>
                             
+                            if (studentCourse.passedCredits == dbCourse.totalCredits) {
+                                elementSelector('div > div:last-child > .search-courses').innerHTML += `
+                                <div class="done">
+                                <div class="course-title">${dbCourse.title}</div>
+                                ${studentCourse.started.semester} ${studentCourse.started.year}
+                                (${studentCourse.passedCredits} of ${dbCourse.totalCredits} credits)
+                                </div>
                             `
+                            }
+
+                            else {
+                                elementSelector('div > div:last-child > .search-courses').innerHTML += `
+                            <div class="notDone">
+                            <div class="course-title">${dbCourse.title}</div>
+                            ${studentCourse.started.semester} ${studentCourse.started.year}
+                            (${studentCourse.passedCredits} of ${dbCourse.totalCredits} credits)
+                            </div>
+                            `
+                            }
+                            
             
                         }
                     }
