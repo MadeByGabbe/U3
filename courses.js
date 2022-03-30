@@ -1,13 +1,13 @@
 "use strict" 
 
 // Choose a element based on what is given in parameter
-let selectElement = (select) => {
+let elementSelector = (select) => {
     return document.querySelector(select); 
 }
 
 // Cleanse the content 
 let clearResults = () => {
-    selectElement("#search-result").innerHTML = "";
+    elementSelector("#search-result").innerHTML = "";
 }
 
 // sort 
@@ -41,23 +41,23 @@ function responsibelOfCourse (counter) {
 }
 
 
-function teacherInCourse (counter) {
+function teachersInCourse (counter) {
   
     let course = DATABASE.courses[counter].teachers;
     
-    console.log(course)
+    // console.log(course)
     
     for ( let course of DATABASE.courses[counter].teachers) {
       
-        console.log(course)
+        // console.log(course)
     
       for ( let teachers of DATABASE.teachers ) {
     
-        console.log(teachers)
+        // console.log(teachers)
 
         if ( course == teachers.teacherId) {
 
-          selectElement(`div > div:last-child > .name-teachers`).innerHTML += `
+          elementSelector(`div > div:last-child > .name-teachers`).innerHTML += `
             <div>
                 ${teachers.firstName} ${teachers.lastName}  (${teachers.post})
             </div>
@@ -69,17 +69,36 @@ function teacherInCourse (counter) {
   }
   
 
-  function getStudentsFromCourse (counter) {
-  
-    
-  
-  
-  }
+function studentsInCourse(counter) {
+  let studentCourse = DATABASE.students.filter((student) => student.courses.some((course) => course.courseId == DATABASE.courses[counter].courseId))
+              console.log(studentCourse);
+              for (let student of studentCourse) {
+                let courseById = student.courses.filter((course) => course.courseId == DATABASE.courses[counter].courseId)
+                console.log(courseById);
 
+                if(courseById[0].passedCredits == DATABASE.courses[counter].totalCredits)
+                elementSelector('div > div:last-child > .students').innerHTML += `
+                    <div class="done">
+                    <div class="course-title">${student.firstName} ${student.lastName}</div>
+                    ${courseById[0].started.semester} ${courseById[0].started.year}
+                    (${courseById[0].passedCredits} credits)
+                    </div>
+                `
+                else {
+                  elementSelector('div > div:last-child > .students').innerHTML += `
+                  <div class="notDone">
+                  <div class="course-title">${student.firstName} ${student.lastName}</div>
+                  ${courseById[0].started.semester} ${courseById[0].started.year}
+                  (${courseById[0].passedCredits} credits)
+                  </div>
+                `
+                }
+              }
+}
 
-function getTeachersOnSearch () {
+function getResults () {
 
-    let search = selectElement("#searchbar").value;
+    let search = elementSelector("#searchbar").value;
     // console.log(search);
 
     clearResults();
@@ -94,7 +113,7 @@ function getTeachersOnSearch () {
 
                 sortCourseTitle();
 
-                selectElement("#search-result").innerHTML += `
+                elementSelector("#search-result").innerHTML += `
                     <div class="search-div">
 
                         <h3 class="studentTitle"> ${DATABASE.courses[i].title} (credits ${DATABASE.courses[i].totalCredits}) </h3>
@@ -107,19 +126,15 @@ function getTeachersOnSearch () {
                         <div class="name-teachers"> 
                             <div class="responsibleTeacher">
                                 ${responsibelOfCourse(i)}
-                            </div>
-                            
+                            </div>   
                         </div>
-                            
+  
                         <p> Students </p>
-                        <div class="students">
-                            
-                        </div>
-                            
+                        <div class="students"></div>      
                     </div>
                  `
-                    teacherInCourse(i)
-                    // getStudentsFromCourse(i)
+                  studentsInCourse(i)
+                  teachersInCourse(i)
             }
         }
     } 
@@ -146,6 +161,6 @@ function darkMode() {
     
 }
 
-selectElement(".theme").addEventListener("click", darkMode)
+elementSelector(".theme").addEventListener("click", darkMode)
 
-selectElement("#searchbar").addEventListener("keyup", getTeachersOnSearch);
+elementSelector("#searchbar").addEventListener("keyup", getResults);
