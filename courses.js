@@ -5,12 +5,12 @@ let elementSelector = (select) => {
     return document.querySelector(select); 
 }
 
-// Cleanse the content 
+// Clears content inside search-result
 let clearResults = () => {
     elementSelector("#search-result").innerHTML = "";
 }
 
-// sort 
+// Sorts courses by title in alphabetical order
 function sortCourseTitle () {
 
     DATABASE.courses.sort((a, b) => {
@@ -27,7 +27,7 @@ function sortCourseTitle () {
   }
 
 
-// Get responsibel for course 
+// Get Course Responsible
 function responsibelOfCourse (counter) {
   
     let course = DATABASE.courses[counter]; 
@@ -40,16 +40,12 @@ function responsibelOfCourse (counter) {
   
 }
 
-
+// Fetch teachers in course
 function teachersInCourse (counter) {
     
     for ( let course of DATABASE.courses[counter].teachers) {
-      
-        // console.log(course)
     
       for ( let teachers of DATABASE.teachers ) {
-    
-        // console.log(teachers)
 
         if ( course == teachers.teacherId) {
 
@@ -64,16 +60,17 @@ function teachersInCourse (counter) {
     }
   }
   
-
+// Fetch the students
 function studentsInCourse(counter) {
+  // Filters through student database with the condition some(looking for at least one course in the student's courselist that matches current course)
   let studentCourse = DATABASE.students
     .filter((student) => student.courses
     .some((course) => course.courseId == DATABASE.courses[counter].courseId))
-              console.log(studentCourse);
+
               for (let student of studentCourse) {
                 let courseById = student.courses.filter((course) => course.courseId == DATABASE.courses[counter].courseId)
-                console.log(courseById);
 
+                // If they've passed
                 if(courseById[0].passedCredits == DATABASE.courses[counter].totalCredits)
                   elementSelector('div > div:last-child > .students > .done').innerHTML += `
                   <div class="studentDone">
@@ -81,6 +78,7 @@ function studentsInCourse(counter) {
                     ${courseById[0].started.semester} ${courseById[0].started.year}
                   </div>
                 `
+                // If they've not
                 else {
                   elementSelector('div > div:last-child > .students > .notDone').innerHTML += `
                   <div class="studentNotDone">
@@ -95,7 +93,6 @@ function studentsInCourse(counter) {
 function getResults () {
 
     let search = elementSelector("#searchbar").value;
-    // console.log(search);
 
     clearResults();
 
@@ -103,8 +100,7 @@ function getResults () {
         
         for ( let i = 0; i < DATABASE.courses.length; i++ ) {
 
-            // console.log(DATABASE.courses[i].title)
-
+            // Checks whether the letters are included in the course title.
             if ( DATABASE.courses[i].title.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ) {
 
                 sortCourseTitle();
@@ -139,46 +135,43 @@ function getResults () {
     } 
 }
 
-// Kollar efter sparade darkmode 
+// Looking for saved darkmode
 let darkMode = localStorage.getItem('darkMode'); 
 
 let darkModeToggle = document.querySelector('#dark-mode-toggle');
 
-// aktivera DarkMode
+// Activates DarkMode
 function enableDarkMode ()  {
-  // Lägger till klass 
   document.body.classList.add('darkmode');
-  // updaterar darkMode till localStorage
+  // Updates darkmode to local storage
   localStorage.setItem('darkMode', 'enabled');
   elementSelector('#dark-mode-toggle').innerHTML = "Light mode"
 }
 
-// av aktiverar DarMode 
+// Deactivates Darkmode 
 function disableDarkMode () {
-  // tarbort classen darkMode
   document.body.classList.remove('darkmode');
-  // updaterar darkMode i localStorage 
   localStorage.setItem('darkMode', null);
   elementSelector('#dark-mode-toggle').innerHTML = "Dark mode"
 }
  
-// Om användaren har ackiverar DarkMode sedan tidigare 
+// If the user have enabled it before 
 if (darkMode === 'enabled') {
   enableDarkMode();
 }
 
-// Knapp för aktivera och avaktivera
+// Toggle mode button
 darkModeToggle.addEventListener('click', () => {
-  // Få dark mode inställningar
   darkMode = localStorage.getItem('darkMode'); 
 
-  // Om inte aktiverad aktivera 
   if (darkMode !== 'enabled') {
     enableDarkMode();
-  // Om aktiverade avaktivera 
-  } else {
+
+  }
+  else {
     disableDarkMode(); 
   }
 });
 
+// Eventlistener for whenever a letter is entered into the searchbox
 elementSelector("#searchbar").addEventListener("keyup", getResults);

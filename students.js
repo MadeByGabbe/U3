@@ -1,6 +1,6 @@
 "use strict";
 
-// Selects Element
+// Choose a element based on what is given in parameter
 function elementSelector(select) {
     return document.querySelector(select);
 }
@@ -10,6 +10,7 @@ function clearResults() {
     elementSelector('#search-results').innerHTML = "";
 }
 
+// Sorts students in alphabetical order 
 function sortStudents () {
 
     DATABASE.students.sort((a, b) => {
@@ -25,6 +26,7 @@ function sortStudents () {
   
   }
 
+// Calculates total credits for a student
 function getTotalCredits(counter) {
     let credits = [];
 
@@ -50,6 +52,7 @@ function getResults() {
     if (search.length > 0) {
         for (let i = 0; i < DATABASE.students.length; i++){
 
+            // Checks whether the letters are included in the student's last name.
             if (DATABASE.students[i].lastName.toLowerCase().includes(search.toLowerCase())) {
                 
                 sortStudents()
@@ -67,10 +70,13 @@ function getResults() {
                     </div>
                 
                 `
+
+                // Search through course database to match courses of current student
                 for (let studentCourse of DATABASE.students[i].courses) {
                     for (let dbCourse of DATABASE.courses) {
                         if (studentCourse.courseId == dbCourse.courseId) {
                             
+                            // If they've passed
                             if (studentCourse.passedCredits == dbCourse.totalCredits) {
                                 elementSelector('div > div:last-child > .search-courses').innerHTML += `
                                 <div class="done">
@@ -80,7 +86,8 @@ function getResults() {
                                 </div>
                             `
                             }
-
+                            
+                            // If they've not
                             else {
                                 elementSelector('div > div:last-child > .search-courses').innerHTML += `
                             <div class="notDone">
@@ -102,47 +109,44 @@ function getResults() {
     }
 }
 
-// Kollar efter sparade darkmode 
+// Looking for saved darkmode
 let darkMode = localStorage.getItem('darkMode'); 
 
 let darkModeToggle = document.querySelector('#dark-mode-toggle');
 
-// aktivera DarkMode
+// Activates DarkMode
 function enableDarkMode ()  {
-  // Lägger till klass 
   document.body.classList.add('darkmode');
-  // updaterar darkMode till localStorage
+  // Updates darkmode to local storage
   localStorage.setItem('darkMode', 'enabled');
   elementSelector('#dark-mode-toggle').innerHTML = "Light mode"
 }
 
-// av aktiverar DarMode 
+// Deactivates Darkmode 
 function disableDarkMode () {
-  // tarbort classen darkMode
   document.body.classList.remove('darkmode');
-  // updaterar darkMode i localStorage 
+  // Updates darkmode to local storage  
   localStorage.setItem('darkMode', null);
   elementSelector('#dark-mode-toggle').innerHTML = "Dark mode"
 }
  
-// Om användaren har ackiverar DarkMode sedan tidigare 
+// If the user have enabled it before
 if (darkMode === 'enabled') {
   enableDarkMode();
 }
 
-// Knapp för aktivera och avaktivera
+// Toggle mode button
 darkModeToggle.addEventListener('click', () => {
-  // Få dark mode inställningar
   darkMode = localStorage.getItem('darkMode'); 
 
-  // Om inte aktiverad aktivera 
   if (darkMode !== 'enabled') {
     enableDarkMode();
-  // Om aktiverade avaktivera 
-  } else {
+  }
+  
+  else {
     disableDarkMode(); 
   }
 });
 
-
+// Eventlistener for whenever a letter is entered into the searchbox
 elementSelector('#searchbar').addEventListener('keyup', getResults);
