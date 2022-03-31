@@ -153,24 +153,32 @@ function enableDarkMode ()  {
   elementSelector('#dark-mode-toggle').innerHTML = "Lightmode"
 }
 
-//Skapar en dark/light mode funktion där "knappen/button" skapas till en eventListener 
-function darkMode() {
-    
-    var element = document.body;
-    const darkMode = localStorage.getItem("darkMode")
-    element.classList.toggle("darkMode");
-    
-    if (JSON.parse(darkMode) == true) {
-        element.classList.remove("darkMode");
-        localStorage.setItem("darkMode", JSON.stringify(false));
-    } 
-    else if (JSON.parse(darkMode) == false) {
-        element.classList.add("darkMode");
-        localStorage.setItem("darkMode", JSON.stringify(true));
-    }
-    
+// av aktiverar DarMode 
+function disableDarkMode () {
+  // tarbort classen darkMode
+  document.body.classList.remove('darkmode');
+  // updaterar darkMode i localStorage 
+  localStorage.setItem('darkMode', null);
+  elementSelector('#dark-mode-toggle').innerHTML = "Darkmode"
+}
+ 
+// Om användaren har ackiverar DarkMode sedan tidigare 
+if (darkMode === 'enabled') {
+  enableDarkMode();
 }
 
-elementSelector(".theme").addEventListener("click", darkMode)
+// Knapp för aktivera och avaktivera
+darkModeToggle.addEventListener('click', () => {
+  // Få dark mode inställningar
+  darkMode = localStorage.getItem('darkMode'); 
+
+  // Om inte aktiverad aktivera 
+  if (darkMode !== 'enabled') {
+    enableDarkMode();
+  // Om aktiverade avaktivera 
+  } else {
+    disableDarkMode(); 
+  }
+});
 
 elementSelector("#searchbar").addEventListener("keyup", getResults);
