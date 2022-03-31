@@ -10,6 +10,21 @@ function clearResults() {
     elementSelector('.search-results').innerHTML = "";
 }
 
+function sortStudents () {
+
+    DATABASE.students.sort((a, b) => {
+      if (a.lastName > b.lastName) {
+        return 1;
+      }
+      else if (a.lastName < b.lastName) {
+        return -1;
+      }
+      return 0;
+  
+    })
+  
+  }
+
 function getTotalCredits(counter) {
     let credits = [];
 
@@ -36,7 +51,8 @@ function getResults() {
         for (let i = 0; i < DATABASE.students.length; i++){
 
             if (DATABASE.students[i].lastName.toLowerCase().includes(search.toLowerCase())) {
-            
+                
+                sortStudents()
                 
                 elementSelector('.search-results').innerHTML += `
                 

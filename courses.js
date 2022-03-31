@@ -42,10 +42,6 @@ function responsibelOfCourse (counter) {
 
 
 function teachersInCourse (counter) {
-  
-    let course = DATABASE.courses[counter].teachers;
-    
-    // console.log(course)
     
     for ( let course of DATABASE.courses[counter].teachers) {
       
@@ -58,8 +54,8 @@ function teachersInCourse (counter) {
         if ( course == teachers.teacherId) {
 
           elementSelector(`div > div:last-child > .name-teachers`).innerHTML += `
-            <div>
-                ${teachers.firstName} ${teachers.lastName}  (${teachers.post})
+            <div class="teacher-box">
+                <p> ${teachers.firstName} ${teachers.lastName}  (${teachers.post}) </p>
             </div>
           `
 
@@ -70,26 +66,26 @@ function teachersInCourse (counter) {
   
 
 function studentsInCourse(counter) {
-  let studentCourse = DATABASE.students.filter((student) => student.courses.some((course) => course.courseId == DATABASE.courses[counter].courseId))
+  let studentCourse = DATABASE.students
+    .filter((student) => student.courses
+    .some((course) => course.courseId == DATABASE.courses[counter].courseId))
               console.log(studentCourse);
               for (let student of studentCourse) {
                 let courseById = student.courses.filter((course) => course.courseId == DATABASE.courses[counter].courseId)
                 console.log(courseById);
 
                 if(courseById[0].passedCredits == DATABASE.courses[counter].totalCredits)
-                elementSelector('div > div:last-child > .students').innerHTML += `
-                    <div class="done">
-                    <div class="course-title">${student.firstName} ${student.lastName}</div>
+                  elementSelector('div > div:last-child > .students > .done').innerHTML += `
+                  <div class="studentDone">
+                    <div class="studentName">${student.firstName} ${student.lastName} (${courseById[0].passedCredits} credits)</div>
                     ${courseById[0].started.semester} ${courseById[0].started.year}
-                    (${courseById[0].passedCredits} credits)
-                    </div>
+                  </div>
                 `
                 else {
-                  elementSelector('div > div:last-child > .students').innerHTML += `
-                  <div class="notDone">
-                  <div class="course-title">${student.firstName} ${student.lastName}</div>
-                  ${courseById[0].started.semester} ${courseById[0].started.year}
-                  (${courseById[0].passedCredits} credits)
+                  elementSelector('div > div:last-child > .students > .notDone').innerHTML += `
+                  <div class="studentNotDone">
+                    <div class="studentName">${student.firstName} ${student.lastName} (${courseById[0].passedCredits} credits)</div>
+                    ${courseById[0].started.semester} ${courseById[0].started.year}
                   </div>
                 `
                 }
@@ -116,11 +112,11 @@ function getResults () {
                 elementSelector("#search-result").innerHTML += `
                     <div class="search-div">
 
-                        <h3 class="studentTitle"> ${DATABASE.courses[i].title} (credits ${DATABASE.courses[i].totalCredits}) </h3>
+                        <h3 class="studentTitle"> ${DATABASE.courses[i].title} (${DATABASE.courses[i].totalCredits} credits) </h3>
                         
                         <div class="proffesion">    
-                            <div class="responsible">Course Responsible</div>  
-                            <div class="teachers">Teachers</div>
+                            <div class="responsible">Course Responsible:</div>  
+                            <div class="teachers">Teachers:</div>
                         </div>
 
                         <div class="name-teachers"> 
@@ -129,8 +125,11 @@ function getResults () {
                             </div>   
                         </div>
   
-                        <p> Students </p>
-                        <div class="students"></div>      
+                        <p> Students: </p>
+                        <div class="students">
+                          <div class="done"></div>
+                          <div class="notDone"></div>
+                        </div>      
                     </div>
                  `
                   studentsInCourse(i)
@@ -140,8 +139,19 @@ function getResults () {
     } 
 }
 
+// Kollar efter sparade darkmode 
+let darkMode = localStorage.getItem('darkMode'); 
 
+let darkModeToggle = document.querySelector('#dark-mode-toggle');
 
+// aktivera DarkMode
+function enableDarkMode ()  {
+  // Lägger till klass 
+  document.body.classList.add('darkmode');
+  // updaterar darkMode till localStorage
+  localStorage.setItem('darkMode', 'enabled');
+  elementSelector('#dark-mode-toggle').innerHTML = "Lightmode"
+}
 
 //Skapar en dark/light mode funktion där "knappen/button" skapas till en eventListener 
 function darkMode() {

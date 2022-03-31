@@ -45,20 +45,19 @@ body {
     width: 90vw;
     max-width: 1100px;
     background-color: rgb(255, 255, 255);
-    border-radius: 10px;
-    border:rgb(128, 158, 172) solid 4px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    padding: 5px;
 }
 
 .studentTitle {
     margin: 10px 20px 10px 20px;
 }
-/*  */
 
 .proffesion {
     display: grid;
-    grid-template-columns: 265px 200px;
+    grid-template-columns: 290px 200px;
     margin-bottom: 10px;
+    font-size: large;
 }
 
 .responsible {
@@ -68,55 +67,67 @@ body {
 .responsibleTeacher {
     margin-left: 20px;
     background-color: rgb(240, 212, 88, 0.5);
+    margin-right: 30px;
+    width: 250px;
+    text-align: center;
+}
+
+.name-teachers > div {
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 7px;
+}
+
+.teacher-box {
+    margin-right: 10px;
 }
 
 .name-teachers {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
     margin-bottom: 10px;
+    font-size: large;
 }
 
-.name-teachers > div {
-    border: 1px solid gray;
-    border-radius: 3px;
-    padding: 5px;
-    width: 220px;
-}
 
 .search-div > p {   
     margin-left: 20px;
     font-size: 18px;
 }
 
-.students {
+.done, .notDone {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     margin: 10px 20px 10px 20px;
 }
 
-.students > div {
-    padding: 7px;
+.students > div > div {
     border: solid rgb(63, 62, 62) 1px;
 }
 
-.course-title {
+
+
+.studentName {
     flex-grow: 1;
-    padding: 10px;
+    padding-bottom: 5px;
+    font-weight: bold;
 }
 
 
-.done {
-    flex-grow: 1;
+.studentDone {
     padding: 10px;
     background-color: rgba(87, 250, 87, 0.50);
-    font-weight: bold;
+    border-radius: 10px;
 }
 
-.notDone {
-    flex-grow: 1;
+.studentNotDone {
     padding: 10px;
-    background-color: rgb(250, 164, 164, 0.50);
-    font-weight: bold;
-}
+    border-radius: 10px;
+    color: var(--clr-text);
+
+p {
+    flex-grow: 1;
+    color: var(--clr-text);
+
+#dark-mode-toggle {
