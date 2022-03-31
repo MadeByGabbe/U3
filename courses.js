@@ -150,7 +150,7 @@ function enableDarkMode ()  {
   document.body.classList.add('darkmode');
   // updaterar darkMode till localStorage
   localStorage.setItem('darkMode', 'enabled');
-  elementSelector('#dark-mode-toggle').innerHTML = "Lightmode"
+  elementSelector('#dark-mode-toggle').innerHTML = "Light mode"
 }
 
 // av aktiverar DarMode 
@@ -159,7 +159,7 @@ function disableDarkMode () {
   document.body.classList.remove('darkmode');
   // updaterar darkMode i localStorage 
   localStorage.setItem('darkMode', null);
-  elementSelector('#dark-mode-toggle').innerHTML = "Darkmode"
+  elementSelector('#dark-mode-toggle').innerHTML = "Dark mode"
 }
  
 // Om användaren har ackiverar DarkMode sedan tidigare 

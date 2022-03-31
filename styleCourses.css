@@ -1,3 +1,30 @@
+:root{
+    --clr-background: rgb(200, 200, 200);
+    --clr-boxShadow: rgba(31, 31, 31, 0.5);
+    --clr-searchBorder: rgb(63, 62, 62);
+    --clr-text: default;
+    --clr-boxColor: rgb(255, 255, 255);
+    --clr-responsColor: rgba(255, 110, 110, 0.5);
+    --clr-teacherColor: default;
+    --clr-studentDone: rgba(87, 250, 87, 0.5);
+    --clr-buttonColor: rgb(41, 41, 41);
+    --clr-buttonText: white;
+}
+
+.darkmode {
+    --clr-background: rgb(41, 41, 41);
+    --clr-boxShadow: rgba(255, 255, 255, 0.5);
+    --clr-searchBorder: none;
+    --clr-text: white;
+    --clr-boxColor: rgb(84, 84, 84);
+    --clr-responsColor: rgba(203, 37, 37, 0.5);
+    --clr-teacherColor: rgb(75, 75, 75);
+    --clr-studentDone: rgba(50, 152, 50, 0.5);
+    --clr-buttonColor: white;
+    --clr-buttonText: rgb(41, 41, 41);
+}
+
+
 * {
     margin: 0;
     padding: 0;
@@ -8,7 +35,17 @@
 body { 
     margin: 0px;
     padding: 0px;
-    background-color: rgb(170, 165, 165);
+    background-color: var(--clr-background);
+}
+
+button {
+    color: var(--clr-buttonText);
+    background-color: var(--clr-buttonColor);
+}
+
+.container{
+    width: 90%;
+    margin-left: 5%;
 }
 
 #box {
@@ -22,6 +59,7 @@ body {
 #header {
     margin-top: 20px;
     text-align: center;
+    color: var(--clr-text);
 }
 
 #searchbar {
@@ -30,7 +68,7 @@ body {
     padding: 10px 10px;
     width: 300px;
     border-radius: 5px;
-    border: solid rgb(63, 62, 62) 1px;
+    border: solid var(--clr-searchBorder) 1px;
 }
 
 
@@ -42,15 +80,17 @@ body {
 }
 
 .search-div {
+    box-shadow: 3px 5px 5px var(--clr-boxShadow) ;
     width: 90vw;
     max-width: 1100px;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--clr-boxColor);
     margin-bottom: 15px;
     padding: 5px;
 }
 
 .studentTitle {
     margin: 10px 20px 10px 20px;
+    color: var(--clr-text)
 }
 
 .proffesion {
@@ -62,14 +102,20 @@ body {
 
 .responsible {
     margin-left: 20px;
+    color: var(--clr-text);
+}
+
+.teachers {
+    color: var(--clr-text);
 }
 
 .responsibleTeacher {
     margin-left: 20px;
-    background-color: rgb(240, 212, 88, 0.5);
     margin-right: 30px;
+    background-color: var(--clr-responsColor);
     width: 250px;
     text-align: center;
+    color: var(--clr-text);
 }
 
 .name-teachers > div {
@@ -80,6 +126,7 @@ body {
 
 .teacher-box {
     margin-right: 10px;
+    background-color: var(--clr-teacherColor);
 }
 
 .name-teachers {
@@ -117,17 +164,26 @@ body {
 
 .studentDone {
     padding: 10px;
-    background-color: rgba(87, 250, 87, 0.50);
+    background-color: var(--clr-studentDone);
     border-radius: 10px;
+    color: var(--clr-text);
 }
 
 .studentNotDone {
     padding: 10px;
     border-radius: 10px;
     color: var(--clr-text);
+    background-color: var(--clr-teacherColor);
+}
 
 p {
     flex-grow: 1;
     color: var(--clr-text);
+}
 
 #dark-mode-toggle {
+    margin-top: 20px;
+    margin-left: 20px;
+    height: 50px;
+    padding: 5px;
+}
