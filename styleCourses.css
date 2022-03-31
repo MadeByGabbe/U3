@@ -186,4 +186,6 @@ p {
     margin-left: 20px;
     height: 50px;
     padding: 5px;
+    color: var(--clr-buttonText);
+    background-color: var(--clr-buttonColor);
 }

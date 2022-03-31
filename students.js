@@ -7,7 +7,7 @@ function elementSelector(select) {
 
 // Clear content inside search-results div
 function clearResults() {
-    elementSelector('.search-results').innerHTML = "";
+    elementSelector('#search-results').innerHTML = "";
 }
 
 function sortStudents () {
@@ -43,7 +43,7 @@ function getTotalCredits(counter) {
 
 // Renders result from search box input
 function getResults() {
-    let search = elementSelector('.searchbar').value;
+    let search = elementSelector('#searchbar').value;
     
     clearResults();
 
@@ -54,7 +54,7 @@ function getResults() {
                 
                 sortStudents()
                 
-                elementSelector('.search-results').innerHTML += `
+                elementSelector('#search-results').innerHTML += `
                 
                     <div class="search-div">
                     <h3 class="studentTitle">
@@ -102,6 +102,47 @@ function getResults() {
     }
 }
 
+// Kollar efter sparade darkmode 
+let darkMode = localStorage.getItem('darkMode'); 
+
+let darkModeToggle = document.querySelector('#dark-mode-toggle');
+
+// aktivera DarkMode
+function enableDarkMode ()  {
+  // Lägger till klass 
+  document.body.classList.add('darkmode');
+  // updaterar darkMode till localStorage
+  localStorage.setItem('darkMode', 'enabled');
+  elementSelector('#dark-mode-toggle').innerHTML = "Light mode"
+}
+
+// av aktiverar DarMode 
+function disableDarkMode () {
+  // tarbort classen darkMode
+  document.body.classList.remove('darkmode');
+  // updaterar darkMode i localStorage 
+  localStorage.setItem('darkMode', null);
+  elementSelector('#dark-mode-toggle').innerHTML = "Dark mode"
+}
+ 
+// Om användaren har ackiverar DarkMode sedan tidigare 
+if (darkMode === 'enabled') {
+  enableDarkMode();
+}
+
+// Knapp för aktivera och avaktivera
+darkModeToggle.addEventListener('click', () => {
+  // Få dark mode inställningar
+  darkMode = localStorage.getItem('darkMode'); 
+
+  // Om inte aktiverad aktivera 
+  if (darkMode !== 'enabled') {
+    enableDarkMode();
+  // Om aktiverade avaktivera 
+  } else {
+    disableDarkMode(); 
+  }
+});
 
 
-elementSelector('.searchbar').addEventListener('keyup', getResults);
+elementSelector('#searchbar').addEventListener('keyup', getResults);

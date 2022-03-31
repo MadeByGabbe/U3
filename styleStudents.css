@@ -1,3 +1,29 @@
+:root{
+    --clr-background: rgb(200, 200, 200);
+    --clr-boxShadow: rgba(31, 31, 31, 0.5);
+    --clr-searchBorder: rgb(63, 62, 62);
+    --clr-text: default;
+    --clr-boxColor: rgb(255, 255, 255);
+    --clr-responsColor: rgba(255, 110, 110, 0.5);
+    --clr-teacherColor: default;
+    --clr-studentDone: rgba(87, 250, 87, 0.5);
+    --clr-buttonColor: rgb(41, 41, 41);
+    --clr-buttonText: white;
+}
+
+.darkmode {
+    --clr-background: rgb(41, 41, 41);
+    --clr-boxShadow: rgba(255, 255, 255, 0.5);
+    --clr-searchBorder: none;
+    --clr-text: white;
+    --clr-boxColor: rgb(84, 84, 84);
+    --clr-responsColor: rgba(203, 37, 37, 0.5);
+    --clr-teacherColor: rgb(75, 75, 75);
+    --clr-studentDone: rgba(50, 152, 50, 0.5);
+    --clr-buttonColor: white;
+    --clr-buttonText: rgb(41, 41, 41);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -8,10 +34,15 @@
 body { 
     margin: 0px;
     padding: 0px;
-    background-color:cadetblue;
+    background-color:var(--clr-background);
 }
 
-.box {
+.container{
+    width: 90%;
+    margin-left: 5%;
+}
+
+#box {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -22,27 +53,21 @@ body {
 #header {
     margin-top: 20px;
     text-align: center;
+    color: var(--clr-text);
 }
 
-#byStudent {
-    text-align: center;
+#searchbar {
     margin-top: 10px;
-}
-
-.searchbar {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding: 5px 5px;
-    width: 250px;
+    margin-bottom: 20px;
+    padding: 10px 10px;
+    width: 300px;
     border-radius: 5px;
-    border: solid rgb(63, 62, 62) 1px;
+    border: solid var(--clr-searchBorder) 1px;
 }
 
-.studentTitle {
-    margin: 20px;
-}
 
-.search-result {
+
+#search-result {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -50,13 +75,19 @@ body {
 }
 
 .search-div {
+    box-shadow: 3px 5px 5px var(--clr-boxShadow) ;
     width: 90vw;
     max-width: 1100px;
-    background-color: beige;
-    border-radius: 10px;
-    border:rgba(0, 0, 0, 0.5) solid 4px;
+    background-color: var(--clr-boxColor);
     margin-bottom: 10px;
+    padding: 5px;
 }
+
+.studentTitle {
+    margin: 20px;
+    color: var(--clr-text)
+}
+
 .title {
     margin: 10px 20px 5px 20px;
 }
@@ -64,6 +95,7 @@ body {
 .search-div > p {
     margin-left: 20px;
     font-size: 18px;
+    color: var(--clr-text)
 }
 
 .search-courses {
@@ -81,17 +113,29 @@ body {
     flex-grow: 1;
     margin-bottom: 5px;
     font-weight: bold;
+    color: var(--clr-text)
 }
 
 
 .done {
     padding: 10px;
-    background-color: rgb(87, 250, 87);
+    background-color: var(--clr-studentDone);
     border-radius: 10px;
+    color: var(--clr-text);
 }
 
 .notDone {
     padding: 10px;
-    background-color: whitesmoke;
+    background-color: var(--clr-teacherColor);
     border-radius: 10px;
+    color: var(--clr-text);
+}
+
+#dark-mode-toggle {
+    margin-top: 20px;
+    margin-left: 20px;
+    height: 50px;
+    padding: 5px;
+    color: var(--clr-buttonText);
+    background-color: var(--clr-buttonColor);
 }
